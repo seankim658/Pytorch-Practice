@@ -14,6 +14,7 @@ dependencies:
   - scipy
   - scikit-learn
   - pytorch=1.11=py3.10_cuda11.3_cudnn8_0
+  - torchvision
   - cudatoolkit=11.3
   - optuna
   - matplotlib

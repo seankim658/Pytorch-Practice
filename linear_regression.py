@@ -4,7 +4,6 @@ import numpy as np
 from sklearn import datasets 
 import matplotlib.pyplot as plt 
 
-
 # 0) prepare data 
 x_numpy, y_numpy = datasets.make_regression(n_samples = 100, n_features = 1, noise = 20, random_state = 1)
 

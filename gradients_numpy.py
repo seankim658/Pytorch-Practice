@@ -3,7 +3,7 @@
 import torch
 import numpy as np
 
-# f = w * x: f = 2 * x 
+# f = w * x: f = 2 * x
 x = np.array([1, 2, 3, 4], dtype = np.float32)
 y = np.array([2, 4, 6, 8], dtype = np.float32)
 
