@@ -22,4 +22,15 @@ class WineDataset(Dataset):
 
 dataset = WineDataset()
 
-dataloader = DataLoader()
+dataloader = DataLoader(dataset = dataset, batch_size = 4, shuffle = True)
+
+# training loop
+epochs = 2
+total_samples = len(dataset)
+n_iterations = math.ceil(total_samples / 4)
+
+for epoch in range(epochs):
+    for i, (inputs, labels) in enumerate(dataloader):
+        # forward pass
+        if (i + 1) % 5 == 0:
+            print(f'epoch: {epoch + 1}/{epochs}, step {i + 1}/{n_iterations}, inputs {inputs.shape}')
