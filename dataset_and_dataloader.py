@@ -5,22 +5,40 @@ import numpy as np
 import math 
 
 class WineDataset(Dataset):
-    def __init__(self):
+    def __init__(self, transform = None):
         # data loading
         xy = np.loadtxt('./data/wine.csv', delimiter = ',', dtype = np.float32, skiprows = 1)
-        self.x = torch.from_numpy(xy[:, 1:])
-        self.y = torch.from_numpy(xy[:, [0]]) # n_samples, 1
+        self.x = xy[:, 1:]
+        self.y = xy[:, [0]] # n_samples, 1
         self.num_samples = xy.shape[0]
+        self.transform = transform
     
     def __getitem__(self, index):
         # dataset[index]
-        return self.x[index], self.y[index]
+        sample = self.x[index], self.y[index]
+        if self.transform:
+            sample = self.transform(sample)
+        return sample
 
     def __len__(self):
         # len(dataset)
         return self.num_samples
 
-dataset = WineDataset()
+class ToTensor:
+    def __call__(self, sample):
+        inputs, labels = sample
+        return torch.from_numpy(inputs), torch.from_numpy(labels)
+
+class MulTransform:
+    def __init__(self, factor):
+        self.factor = factor 
+    
+    def __call__(self, sample):
+        inputs, labels = sample 
+        inputs *= self.factor
+        return inputs, labels
+
+dataset = WineDataset(transform = ToTensor())
 
 dataloader = DataLoader(dataset = dataset, batch_size = 4, shuffle = True)
 
